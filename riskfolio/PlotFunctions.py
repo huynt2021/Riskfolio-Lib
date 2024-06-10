@@ -493,7 +493,7 @@ def plot_pie(
     item = pd.DataFrame(["Others", a1, a2]).T
     item.columns = ["labels", "abs_values", "values"]
     sizes2 = sizes2[sizes2.index <= l]
-    sizes2 = sizes2.append(item)
+    sizes2 = pd.concat([sizes2, item], axis=0)
 
     abs_sizes = sizes2["abs_values"].tolist()
     sizes = sizes2["values"].tolist()
@@ -677,7 +677,7 @@ def plot_bar(
         item.columns = ["labels", "abs_values", "values"]
         sizes2 = sizes2[sizes2.index <= l1]
         sizes2 = sizes2.sort_values(by=["values"], ascending=False)
-        sizes2 = sizes2.append(item)
+        sizes2 = pd.concat([sizes2, item], axis=0)
     elif l2 > 0:
         a1 = sizes2["abs_values"].sum() - sizes2[sizes2.index <= l2]["abs_values"].sum()
         a2 = sizes2["values"].sum() - sizes2[sizes2.index <= l2]["values"].sum()
@@ -685,7 +685,7 @@ def plot_bar(
         item.columns = ["labels", "abs_values", "values"]
         sizes2 = sizes2[sizes2.index <= l2]
         sizes2 = sizes2.sort_values(by=["values"], ascending=False)
-        sizes2 = sizes2.append(item)
+        sizes2 = pd.concat([sizes2, item], axis=0)
     else:
         sizes2 = sizes2.sort_values(by=["values"], ascending=False)
 
